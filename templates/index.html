@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bejelentkezés</title>
+    <style>
+        #loadingMessage {
+            display: none;
+            color: blue;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Bejelentkezés</h1>
+
+    <!-- Bejelentkezési űrlap -->
+    <form id="loginForm">
+        <label for="felhasznalonev">Felhasználónév:</label>
+        <input type="text" id="felhasznalonev" name="felhasznalonev" required><br><br>
+        <label for="jelszo">Jelszó:</label>
+        <input type="password" id="jelszo" name="jelszo" required><br><br>
+        <button type="submit">Bejelentkezés</button>
+    </form>
+
+    <!-- Várakozó üzenet -->
+    <div id="loadingMessage">
+        A hitelesítés folyamatban, kérem várjon...
+    </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            // Az űrlap elrejtése és a várakozó üzenet megjelenítése
+            document.getElementById("loginForm").style.display = 'none';
+            document.getElementById("loadingMessage").style.display = 'block';
+
+            const felhasznalonev = document.getElementById("felhasznalonev").value;
+            const jelszo = document.getElementById("jelszo").value;
+
+            fetch('/get_user_data', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    felhasználónév: felhasznalonev,
+                    jelszó: jelszo
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Várakozó üzenet eltüntetése
+                document.getElementById("loadingMessage").style.display = 'none';
+
+                if (data.message) {
+                    alert(data.message);
+                } else {
+                    alert(data.error || 'Ismeretlen hiba');
+                }
+            })
+            .catch(error => {
+                // Várakozó üzenet eltüntetése
+                document.getElementById("loadingMessage").style.display = 'none';
+                alert('Hiba történt: ' + error);
+            });
+        });
+    </script>
+</body>
+</html>
