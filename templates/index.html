@@ -77,7 +77,8 @@
                 document.getElementById("loadingMessage").style.display = 'none';
  
                 if (data.message) {
-                    alert(data.message);
+                    // Sikeres bejelentkezés esetén visszairányítás az előző oldalra
+                    window.history.back();
                 } else {
                     alert(data.error || 'Ismeretlen hiba');
                 }
