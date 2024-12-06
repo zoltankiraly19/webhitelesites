@@ -62,7 +62,7 @@ def get_user_data():
     # Token megszerzése a ServiceNow-tól
     auth_data = {
         'grant_type': 'password',
-        'client_id': '45f3f2fb2ead4928ab994c64c664dfdc',
+        'client_id': '89962e5f5a0c46b7974130f213b8c121',
         'client_secret': 'fyHL1.@d&7',
         'username': felhasználónév,
         'password': jelszó
