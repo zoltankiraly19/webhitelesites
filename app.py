@@ -24,7 +24,7 @@ def load_and_store_options(headers):
     try:
         # Assignment groups lekérése
         response_groups = requests.get(
-            'https://dev227667.service-now.com/api/now/table/sys_user_group',
+            'https://dev182538.service-now.com/api/now/table/sys_user_group',
             headers=headers
         )
         if response_groups.status_code == 200:
@@ -38,7 +38,7 @@ def load_and_store_options(headers):
 
         # Priorities lekérése
         response_priorities = requests.get(
-            'https://dev227667.service-now.com/api/now/table/sys_choice?sysparm_query=name=incident^element=priority',
+            'https://dev182538.service-now.com/api/now/table/sys_choice?sysparm_query=name=incident^element=priority',
             headers=headers
         )
         if response_priorities.status_code == 200:
@@ -68,7 +68,7 @@ def get_user_data():
         'password': jelszó
     }
 
-    response = requests.post('https://dev227667.service-now.com/oauth_token.do', data=auth_data)
+    response = requests.post('https://dev182538.service-now.com/oauth_token.do', data=auth_data)
 
     # Naplózzuk a válasz szövegét és státuszkódot
     print(f"Response status code: {response.status_code}")
@@ -85,7 +85,7 @@ def get_user_data():
             # Felhasználói sys_id lekérése a token segítségével
             headers = {'Authorization': f'Bearer {access_token}', 'Content-Type': 'application/json'}
             response_user = requests.get(
-                f"https://dev227667.service-now.com/api/now/table/sys_user?sysparm_query=user_name={felhasználónév}",
+                f"https://dev182538.service-now.com/api/now/table/sys_user?sysparm_query=user_name={felhasználónév}",
                 headers=headers
             )
 
